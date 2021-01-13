@@ -298,11 +298,11 @@ func deepFields(reflectType reflect.Type) []reflect.StructField {
 
 		for i := 0; i < reflectType.NumField(); i++ {
 			v := reflectType.Field(i)
-			if v.Anonymous {
-				fields = append(fields, deepFields(v.Type)...)
-			} else {
-				fields = append(fields, v)
-			}
+			//if v.Anonymous {
+			//	fields = append(fields, deepFields(v.Type)...)
+			//} else {
+			fields = append(fields, v)
+			//}
 		}
 
 		return fields
