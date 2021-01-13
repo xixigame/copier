@@ -1,7 +1,6 @@
 package copier
 
 import (
-	"database/sql"
 	"fmt"
 	"reflect"
 	"strings"
@@ -299,11 +298,11 @@ func deepFields(reflectType reflect.Type) []reflect.StructField {
 
 		for i := 0; i < reflectType.NumField(); i++ {
 			v := reflectType.Field(i)
-			//if v.Anonymous {
-			//	fields = append(fields, deepFields(v.Type)...)
-			//} else {
-			fields = append(fields, v)
-			//}
+			if v.Anonymous {
+				fields = append(fields, deepFields(v.Type)...)
+			} else {
+				fields = append(fields, v)
+			}
 		}
 
 		return fields
@@ -353,10 +352,10 @@ func set(to, from reflect.Value, deepCopy bool) bool {
 
 		if from.Type().ConvertibleTo(to.Type()) {
 			to.Set(from.Convert(to.Type()))
-		} else if scanner, ok := to.Addr().Interface().(sql.Scanner); ok {
-			if err := scanner.Scan(from.Interface()); err != nil {
-				return false
-			}
+			// } else if scanner, ok := to.Addr().Interface().(sql.Scanner); ok {
+			// 	if err := scanner.Scan(from.Interface()); err != nil {
+			// 		return false
+			// 	}
 		} else if from.Kind() == reflect.Ptr {
 			return set(to, from.Elem(), deepCopy)
 		} else {
