@@ -14,7 +14,6 @@
 * Copy from map to map
 * Enforce copying a field with a tag
 * Ignore a field with a tag
-* Deep Copy
 
 ## Usage
 
@@ -53,11 +52,11 @@ type Employee struct {
 
 	DoubleAge int32
 	EmployeId int64
-	SuperRole string
+	SuperRule string
 }
 
 func (employee *Employee) Role(role string) {
-	employee.SuperRole = "Super " + role
+	employee.SuperRule = "Super " + role
 }
 
 func main() {
@@ -77,7 +76,7 @@ func main() {
 	//    Salary:150000,            // Copying explicitly ignored
 	//    DoubleAge: 36,            // Copy from method
 	//    EmployeeId: 0,            // Ignored
-	//    SuperRole: "Super Admin", // Copy to method
+	//    SuperRule: "Super Admin", // Copy to method
 	// }
 
 	// Copy struct to slice
@@ -85,7 +84,7 @@ func main() {
 
 	fmt.Printf("%#v \n", employees)
 	// []Employee{
-	//   {Name: "Jinzhu", Age: 18, Salary:0, DoubleAge: 36, EmployeId: 0, SuperRole: "Super Admin"}
+	//   {Name: "Jinzhu", Age: 18, Salary:0, DoubleAge: 36, EmployeId: 0, SuperRule: "Super Admin"}
 	// }
 
 	// Copy slice to slice
@@ -94,8 +93,8 @@ func main() {
 
 	fmt.Printf("%#v \n", employees)
 	// []Employee{
-	//   {Name: "Jinzhu", Age: 18, Salary:0, DoubleAge: 36, EmployeId: 0, SuperRole: "Super Admin"},
-	//   {Name: "jinzhu 2", Age: 30, Salary:0, DoubleAge: 60, EmployeId: 0, SuperRole: "Super Dev"},
+	//   {Name: "Jinzhu", Age: 18, Salary:0, DoubleAge: 36, EmployeId: 0, SuperRule: "Super Admin"},
+	//   {Name: "jinzhu 2", Age: 30, Salary:0, DoubleAge: 60, EmployeId: 0, SuperRule: "Super Dev"},
 	// }
 
  	// Copy map to map
@@ -111,7 +110,7 @@ func main() {
 ### Copy with Option
 
 ```go
-copier.CopyWithOption(&to, &from, copier.Option{IgnoreEmpty: true, DeepCopy: true})
+copier.CopyWithOption(&to, &from, copier.Option{IgnoreEmpty: true})
 ```
 
 ## Contributing
